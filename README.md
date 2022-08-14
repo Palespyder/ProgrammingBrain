@@ -1,6 +1,8 @@
-# ProgrammingBrain
+# Programming Brain
 
-A List of educational products I have worked on to better understand different programming languages.
+A List of educational products I have worked on to better understand different programming languages. 
+I am calling it my Programming Brain because it is the digital dump of all of my learning projects. It's all 
+free to use as you see fit, though I am not sure how useful it will be to anyone else.
 
 ## Python
 - ### API
