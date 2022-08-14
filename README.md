@@ -26,6 +26,7 @@ free to use as you see fit, though I am not sure how useful it will be to anyone
   - [ ] Stock Price Predictor
   - [ ] Global Sea Level Analysis
 - ### Games
+  - [x] ~~Simple Quiz Terminal Game~~
   - [ ] Snake - Terminal
   - [ ] Pong - DearPyGui
   - [ ] Frogger - Pygame 
