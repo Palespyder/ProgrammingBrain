@@ -11,7 +11,8 @@ A List of educational products I have worked on to better understand different p
 - ### Automation
   - [ ] Chicken Coop Door Automation
 - ### Application Development
-  - [ ] Project Tracker Application
+  - [ ] Project Tracker Application (DearPyGui, SQLite)
+  - [ ] Home Bug Tracker Application (Kivy, MongoDB)
 - ### AI & Machine Learning
   - #### TensorFlow
 - ### CLI
@@ -22,10 +23,12 @@ A List of educational products I have worked on to better understand different p
 - ### Games
   - [ ] Snake - Terminal
   - [ ] Pong - DearPyGui
-  - [ ] Pitfall - Pygame 
+  - [ ] Frogger - Pygame 
 - ### Web Development
   - #### Flask
+    - [ ] Documentation Site
   - #### Django
+    - [ ] E-Commerce Site
 
 
 
