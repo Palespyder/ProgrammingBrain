@@ -27,7 +27,7 @@ free to use as you see fit, though I am not sure how useful it will be to anyone
   - [ ] Global Sea Level Analysis
 - ### Games
   - [x] ~~Simple Quiz Terminal Game~~
-  - [ ] Snake - Terminal
+  - [ ] Snake - Pygame
   - [ ] Pong - DearPyGui
   - [ ] Frogger - Pygame 
 - ### Web Development
