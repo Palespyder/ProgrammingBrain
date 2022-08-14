@@ -29,7 +29,8 @@ free to use as you see fit, though I am not sure how useful it will be to anyone
   - [x] ~~Simple Quiz Terminal Game~~
   - [ ] Snake - Pygame
   - [ ] Pong - DearPyGui
-  - [ ] Frogger - Pygame 
+  - [ ] Frogger - Pygame
+  - [ ] Papers Please Clone - Pygame
 - ### Web Development
   - #### Flask
     - [ ] Documentation Site
