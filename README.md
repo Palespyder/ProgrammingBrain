@@ -4,22 +4,25 @@ A List of educational products I have worked on to better understand different p
 
 ## Python
 - ### API
-  - [ ] Weather Station
-  - [ ] Timestamp Microservice on Heroku 
-  - [ ] Recipe API
-  - [ ] Plant Database API
+  - [ ] Weather Station using OpenWeather API
+  - [ ] Timestamp Microservice API on Heroku 
+  - [ ] Recipe API using MongoDB on Heroku
+  - [ ] Plant Database API using SQLite Database
 - ### Automation
-  - [ ] Chicken Coop Door Automation
+    - [ ] Raspberry Pi Chicken Coop Automation System
 - ### Application Development
   - [ ] Project Tracker Application (DearPyGui, SQLite)
   - [ ] Home Bug Tracker Application (Kivy, MongoDB)
 - ### AI & Machine Learning
-  - #### TensorFlow
+  - [ ] AI to play Games
+  - [ ] Bot Detection on Twitter
 - ### CLI
   - [ ] Livestock Tracker (JSON)
   - [ ] Employee Database (SQLite)
   - [ ] Todo List (MongoDB)
 - ### Data Science
+  - [ ] Stock Price Predictor
+  - [ ] Global Sea Level Analysis
 - ### Games
   - [ ] Snake - Terminal
   - [ ] Pong - DearPyGui
@@ -35,5 +38,8 @@ A List of educational products I have worked on to better understand different p
 
 ## JAVASCRIPT
 ## C++
+## C#
 ## GOLANG
 ## RUST
+## Unreal Engine
+
