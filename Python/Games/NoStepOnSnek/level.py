@@ -13,8 +13,6 @@ class Level:
     def setup(self):
         self.snake = Snake((640, 360), self.all_sprites)
         self.rat = Rat((30, 400), self.all_sprites, self.snake.rect)
-        self.rabbit = Rabbit((300, 100), self.all_sprites, self.snake.rect)
-
 
     def run(self, dt):
         self.display_surface.fill((249, 237, 140))
