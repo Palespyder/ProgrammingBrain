@@ -10,6 +10,7 @@ pygame.font.init()
 WINDOW_X = 1280
 WINDOW_Y = 720
 
+
 class SnekGame:
     def __init__(self):
         pygame.init()

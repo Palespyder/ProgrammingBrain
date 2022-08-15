@@ -1,5 +1,6 @@
 import pygame
 from snake import Snake
+from foot import Foot
 
 class Level:
     def __init__(self):
