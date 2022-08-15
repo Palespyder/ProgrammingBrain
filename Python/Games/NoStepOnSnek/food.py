@@ -1,17 +1,23 @@
+import math
+
 import pygame
 import random
 from settings import *
 
 
 class Food(pygame.sprite.Sprite):
-    def __init__(self, pos, group):
+    def __init__(self, pos, group, snake_rect):
         super().__init__(group)
         self.position = pos
         self.group = group
+        self.snake_rect = snake_rect
 
         # Movement
         self.direction = pygame.math.Vector2()
         self.speed = 0
+
+        # AI Variables
+        self.is_running = False
 
 
 class Insect(Food):
@@ -28,7 +34,7 @@ class Insect(Food):
 class Mouse(Food):
     def __init__(self, pos, group):
         super(Mouse, self).__init__(pos, group)
-        self.speed = 100
+        self.speed = 50
         self.image = pygame.Surface((10, 10))
         self.image.fill('blue')
         self.rect = self.image.get_rect(center=pos)
@@ -41,14 +47,19 @@ class Mouse(Food):
 
 
 class Rat(Food):
-    def __init__(self, pos, group):
-        super(Rat, self).__init__(pos, group)
-        self.speed = 200
+    def __init__(self, pos, group, snake_rect):
+        super(Rat, self).__init__(pos, group, snake_rect)
+        self.speed = 100
         self.image = pygame.Surface((20, 20))
         self.image.fill('red')
         self.rect = self.image.get_rect(center=pos)
 
         self.tick_count = 0
+
+    def check_snake_distance(self):
+        x = self.snake_rect.x - self.rect.x
+        y = self.snake_rect.y - self.rect.y
+        return math.sqrt((x**2 + y**2))
 
     def move(self, dt):
         if self.tick_count >= random.randint(120, 241):
@@ -70,32 +81,32 @@ class Rat(Food):
         if self.position[0] <= 0 + self.rect.width // 2:
             self.direction.y = 0
             self.direction.x = 1
-            self.position += self.direction * self.speed * dt
         elif self.position[0] >= WINDOW_X - self.rect.width // 2:
             self.direction.y = 0
             self.direction.x = -1
-            self.position += self.direction * self.speed * dt
         elif self.position[1] <= 0 + self.rect.height // 2:
             self.direction.x = 0
             self.direction.y = 1
-            self.position += self.direction * self.speed * dt
         elif self.position[1] >= WINDOW_Y - self.rect.height // 2:
             self.direction.x = 0
             self.direction.y = -1
-            self.position += self.direction * self.speed * dt
-        else:
-            self.position += self.direction * self.speed * dt
-            self.rect.center = self.position
+
+        self.position += self.direction * self.speed * dt
+        self.rect.center = self.position
         self.tick_count += 1
 
     def update(self, dt):
-        self.move(dt)
+        if not self.is_running:
+            self.move(dt)
+            if self.check_snake_distance() <= 200:
+                self.is_running = True
+                print("I am running away!")
 
 
 class Rabbit(Food):
-    def __init__(self, pos, group):
-        super(Rabbit, self).__init__(pos, group)
-        self.speed = 295
+    def __init__(self, pos, group, snake_rect):
+        super(Rabbit, self).__init__(pos, group, snake_rect)
+        self.speed = 200
         self.image = pygame.Surface((30, 30))
         self.image.fill('white')
         self.rect = self.image.get_rect(center=pos)
