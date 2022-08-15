@@ -3,12 +3,10 @@
 import pygame
 import sys
 from level import Level
+from settings import *
 
 pygame.init()
 pygame.font.init()
-
-WINDOW_X = 1280
-WINDOW_Y = 720
 
 
 class SnekGame:
