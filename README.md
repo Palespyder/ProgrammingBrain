@@ -31,6 +31,7 @@ free to use as you see fit, though I am not sure how useful it will be to anyone
   - [ ] Pong - DearPyGui
   - [ ] Frogger - Pygame
   - [ ] Papers Please Clone - Pygame
+  - [ ] Breakout
 - ### Web Development
   - #### Flask
     - [ ] Documentation Site
