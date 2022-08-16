@@ -47,38 +47,27 @@ class Rat(Food):
         self.tick_count = 0
 
     def move(self, dt):
-        if self.tick_count >= random.randint(120, 241):
-            rnd_num = random.randint(0, 10)
-            if rnd_num == 0:
-                self.direction.y = 0
-                self.direction.x = -1
-            elif rnd_num == 2:
-                self.direction.x = 0
-                self.direction.y = -1
-            elif rnd_num == 4:
-                self.direction.y = 0
+        if self.destination is None:
+            self.destination = self.random_navigable_point()
+            new_vect = self.destination - self.position
+            if self.position[0] <= new_vect.x:
                 self.direction.x = 1
-            elif rnd_num == 4:
-                self.direction.x = 0
+            elif self.position[0] >= new_vect.x:
+                self.direction.x = -1
+            else:
+                self.direction.x= 0
+
+            if self.position[1] <= new_vect.y:
                 self.direction.y = 1
-            self.tick_count = 0
+            elif self.position[1] >= new_vect.y:
+                self.direction.y = -1
+            else:
+                self.direction.y = 0
 
-        if self.position[0] <= 0 + self.rect.width // 2:
-            self.direction.y = 0
-            self.direction.x = 1
-        elif self.position[0] >= WINDOW_X - self.rect.width // 2:
-            self.direction.y = 0
-            self.direction.x = -1
-        elif self.position[1] <= 0 + self.rect.height // 2:
-            self.direction.x = 0
-            self.direction.y = 1
-        elif self.position[1] >= WINDOW_Y - self.rect.height // 2:
-            self.direction.x = 0
-            self.direction.y = -1
+            self.position += self.direction * self.speed * dt
+            self.rect.center = new_vect
+            self.destination = None
 
-        self.position += self.direction * self.speed * dt
-        self.rect.center = self.position
-        self.tick_count += 1
 
 
 
