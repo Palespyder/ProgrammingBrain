@@ -28,6 +28,7 @@ free to use as you see fit, though I am not sure how useful it will be to anyone
 - ### Games
   - [x] ~~Simple Quiz Terminal Game~~
   - [ ] Snake - Pygame
+  - [ ] Atlys - A 2D Pirate Adventure Game - Pygame
   - [ ] Pong - DearPyGui
   - [ ] Frogger - Pygame
   - [ ] Papers Please Clone - Pygame
