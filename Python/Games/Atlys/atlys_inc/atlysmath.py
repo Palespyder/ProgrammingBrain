@@ -1,3 +1,4 @@
+import pygame
 import pygame.math as pm
 import math
 
@@ -10,3 +11,5 @@ def get_distance(start: pm.Vector2, end: pm.Vector2):
     x = end.x - start.x
     y = end.y - start.y
     return math.sqrt((x ** 2 + y ** 2))
+
+

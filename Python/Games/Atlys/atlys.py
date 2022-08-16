@@ -11,7 +11,6 @@ class Atlys:
         pg.font.init()
         pg.display.set_caption("Atlys - A Pirate Survival Adventure")
         self.screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pg.RESIZABLE)
-        self.screen.fill('black')
         self.clock = pg.time.Clock()
 
         # World Variables
