@@ -10,7 +10,7 @@ class Player(AEntity):
         super().__init__(location, rotation, scale, group)
 
         # Player Variables
-        self.speed = 50
+        self.speed = 200
 
         self.image = pg.Surface((self.world_scale.x, self.world_scale.y))
         self.image.fill('white')
@@ -34,6 +34,10 @@ class Player(AEntity):
             self.world_rotation.x = -1
         else:
             self.world_rotation.x = 0
+
+        if keys[pg.K_BACKSPACE]:
+            pg.quit()
+            exit()
 
     def move(self, dt):
         self.world_location += self.world_rotation * self.speed * dt
