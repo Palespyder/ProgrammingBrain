@@ -1,7 +1,7 @@
 import pygame
 from snake import Snake
 from foot import Foot
-from food import Rat, Rabbit
+from food import Rat
 
 class Level:
     def __init__(self):
