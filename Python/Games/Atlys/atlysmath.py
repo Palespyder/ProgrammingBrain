@@ -1,12 +1,14 @@
 import pygame
 import pygame.math as pm
+from settings import *
+import random
 import math
 
 
 def get_distance(start: pm.Vector2, end: pm.Vector2):
     """
-    Calculate the distance from self to the snake in order to be able to evade.
-    :return: The distance from the snake's (x, y) to the rat's (x, y)
+    Calculate the distance from statrt to end.
+    :return: The distance from the start (x, y) to the end (x, y)
     """
     x = end.x - start.x
     y = end.y - start.y

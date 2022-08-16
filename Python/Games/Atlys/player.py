@@ -1,6 +1,6 @@
 import pygame as pg
 from settings import *
-from atlys_inc.atlysmath import *
+from atlysmath import *
 
 
 class Player(pg.sprite.Sprite):
@@ -16,7 +16,7 @@ class Player(pg.sprite.Sprite):
         self.distance_to_world_origin = get_distance(WORLD_ORIGIN, self.world_location)
 
         # Local(Screen) Space Variables
-        self.speed = 200
+        self.speed = 50
 
         self.image = pg.Surface((self.world_scale.x, self.world_scale.y))
         self.image.fill('white')
