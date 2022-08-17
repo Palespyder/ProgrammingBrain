@@ -3,6 +3,7 @@ import sys
 from assets.button import Button
 from settings import *
 from world import World
+from hud import HUD
 from database import Database
 
 
@@ -24,6 +25,9 @@ class Atlys:
 
         # World Variables
         self.world = World()
+
+        # HUD Variables
+        self.hud = HUD(self.world.display_surface)
 
     def main_menu(self):
         """
@@ -99,6 +103,7 @@ class Atlys:
             dt = self.clock.tick() / 1000
             if not self.is_paused:
                 self.world.run(dt)
+                self.hud.update(dt)
             pg.display.update()
 
 
