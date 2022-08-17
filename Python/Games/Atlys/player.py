@@ -36,10 +36,6 @@ class Player(AEntity):
         else:
             self.world_rotation.x = 0
 
-        if keys[pg.K_BACKSPACE]:
-            pg.quit()
-            exit()
-
     def move(self, dt):
         self.world_location += self.world_rotation * self.speed * dt
         self.rect.center = (self.world_location.x, self.world_location.y)

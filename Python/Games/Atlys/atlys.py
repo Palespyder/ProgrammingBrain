@@ -14,6 +14,7 @@ class Atlys:
         pg.display.set_caption("Atlys - A Pirate Survival Adventure")
         self.screen = pg.display.set_mode((0, 0), pg.FULLSCREEN, pg.RESIZABLE)
         self.clock = pg.time.Clock()
+        self.is_paused = False
 
         SCREEN_WIDTH = self.screen.get_width()
         SCREEN_HEIGHT = self.screen.get_height()
@@ -29,6 +30,7 @@ class Atlys:
         Main game menu with options for new game, load game, options, and quit
         """
         while True:
+
             menu_image = pg.image.load("assets/images/main_menu.jpg").convert()
             self.screen.blit(menu_image, (0, 0))
 
@@ -87,13 +89,19 @@ class Atlys:
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        self.is_paused = not self.is_paused # Toggle pause game
+                    elif event.key == pg.K_BACKSPACE:
+                        pg.quit()
+                        sys.exit()
 
             dt = self.clock.tick() / 1000
-            self.world.run(dt)
+            if not self.is_paused:
+                self.world.run(dt)
             pg.display.update()
 
 
 if __name__ == '__main__':
     atlys = Atlys()
-    #atlys.main_menu()
     atlys.run()
