@@ -11,9 +11,9 @@ class World:
 
     def setup(self):
         self.player = Player(pg.math.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), pg.math.Vector2(0, 0),
-                             pg.math.Vector2(32, 32), self.all_sprites)
+                             pg.math.Vector2(64, 64), self.all_sprites)
 
     def run(self, dt):
-        self.display_surface.fill('black')
+        self.display_surface.fill('lightgray')
         self.all_sprites.draw(self.display_surface)
         self.all_sprites.update(dt)

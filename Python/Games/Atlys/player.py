@@ -12,8 +12,9 @@ class Player(AEntity):
         # Player Variables
         self.speed = 200
 
-        self.image = pg.Surface((self.world_scale.x, self.world_scale.y))
-        self.image.fill('white')
+        #self.image = pg.Surface((self.world_scale.x, self.world_scale.y))
+        self.image = pg.image.load('assets/images/character/male/character.png')
+        #self.image.fill('white')
         self.rect = self.image.get_rect(center=(self.world_location.x, self.world_location.y))
 
     def input(self):
