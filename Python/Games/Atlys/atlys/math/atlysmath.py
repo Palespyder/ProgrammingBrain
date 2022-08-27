@@ -1,7 +1,4 @@
-import pygame
 import pygame.math as pm
-from settings import *
-import random
 import math
 
 

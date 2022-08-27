@@ -1,7 +1,6 @@
-import pygame as pg
 from settings import *
 from world_objects import AEntity
-from atlysmath import *
+from atlys.math.atlysmath import *
 
 
 class Player(AEntity):

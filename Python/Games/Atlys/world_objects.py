@@ -1,5 +1,4 @@
-import pygame as pg
-from atlysmath import get_distance
+from Python.Games.Atlys.atlys.math.atlysmath import get_distance
 from settings import *
 
 
