@@ -1,7 +1,7 @@
 import time
 
 import dearpygui.dearpygui as dpg
-from PIL import Image
+from PIL import Image, ImageOps, ExifTags
 from time import *
 import random
 import glob
@@ -13,11 +13,14 @@ dpg.create_context()
 NUM_IMAGES = 30
 POSE_LENGTH = 10
 MAIN_DIR = "C:\\Users\\jason\\Desktop\\Art\\Art Ref"
-SUB_DIR = ["\\Female Fantasy pack\\", "\\sample pack new\\", "\\Veronica_Large\\"]
+SUB_DIR = ["\\Female Fantasy pack\\", "\\Poses\\", "\\Misc\\", "\\Sword fight\\", "\\sample pack new\\", "\\Veronica_Large\\"]
 viewed_images = 0
 IMG_WIN = "Primary Window"
 STOP_LOOP = False
 NEW_IMAGE = True
+IMAGE_WIDTH = 0
+IMAGE_HEIGHT = 0
+images_used = []
 
 
 def draw_image():
@@ -51,22 +54,43 @@ def get_new_img():
     file_path = MAIN_DIR + SUB_DIR[random.randint(0, len(SUB_DIR) - 1)] + "*.jpg"
     images = glob.glob(file_path)
     random_image = random.choice(images)
-
-    img = random_image
-
-    new_img = Image.open(img)
-
-    if new_img.width > new_img.height:
-        out = new_img.rotate(90, expand=True)
-        new_height = 1000
-        new_width = new_height / out.height * out.width
-        resized_img = out.resize((int(new_width), int(new_height)))
-        resized_img.save(f'images/image.jpg')
+    if random_image in images_used:
+        get_new_img()
     else:
-        new_height = 1000
-        new_width = new_height / new_img.height * new_img.width
-        resized_img = new_img.resize((int(new_width), int(new_height)))
-        resized_img.save(f'images/image.jpg')
+        images_used.append(random_image)
+
+    new_img = Image.open(random_image)
+
+    ImageOps.exif_transpose(new_img)
+
+    for orientation in ExifTags.TAGS.keys():
+        if ExifTags.TAGS[orientation] == 'Orientation':
+            break
+
+    exif = new_img._getexif()
+
+    if exif[orientation] == 3:
+        new_img = new_img.rotate(180, expand=True)
+    elif exif[orientation] == 4:
+        new_img = new_img.rotate(180, expand=True)
+    elif exif[orientation] == 5:
+        new_img = new_img.rotate(270, expand=True)
+    elif exif[orientation] == 6:
+        new_img = new_img.rotate(270, expand=True)
+    elif exif[orientation] == 7:
+        new_img = new_img.rotate(270, expand=True)
+    elif exif[orientation] == 8:
+        new_img = new_img.rotate(90, expand=True)
+    elif exif[orientation] is None:
+        get_new_img()
+    elif exif[orientation] == 274:
+        get_new_img()
+
+
+    new_height = 1000
+    new_width = new_height / new_img.height * new_img.width
+    resized_img = new_img.resize((int(new_width), int(new_height)))
+    resized_img.save(f'images/image.jpg')
 
 
 draw_image()
@@ -78,14 +102,15 @@ dpg.create_viewport(title="PyrPose")
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.maximize_viewport()
+dpg.set_primary_window(IMG_WIN, True)
 while dpg.is_dearpygui_running():
     # insert here any code you would like to run in the render loop
     # you can manually stop by using stop_dearpygui()
     if my_timer <= 0 and viewed_images <= NUM_IMAGES:
         my_timer = POSE_LENGTH
         viewed_images += 1
-        print(viewed_images)
         draw_image()
+        dpg.set_primary_window("Primary Window", True)
 
     dpg.render_dearpygui_frame()
 
