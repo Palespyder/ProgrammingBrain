@@ -10,17 +10,22 @@ import os
 
 dpg.create_context()
 
+# add a font registry
+with dpg.font_registry():
+    # first argument ids the path to the .ttf or .otf file
+    default_font = dpg.add_font("Cinzel-Regular.ttf", 120)
+
 NUM_IMAGES = 30
-POSE_LENGTH = 10
+POSE_LENGTH = 180
 MAIN_DIR = "C:\\Users\\jason\\Desktop\\Art\\Art Ref"
-SUB_DIR = ["\\Female Fantasy pack\\", "\\Poses\\", "\\Misc\\", "\\Sword fight\\", "\\sample pack new\\", "\\Veronica_Large\\"]
+SUB_DIR = ["\\Female Fantasy pack\\", "\\Poses\\", "\\Sword fight\\", "\\Veronica_Large\\"]
 viewed_images = 0
 IMG_WIN = "Primary Window"
 STOP_LOOP = False
 NEW_IMAGE = True
-IMAGE_WIDTH = 0
-IMAGE_HEIGHT = 0
 images_used = []
+image_width = None
+image_height = None
 
 
 def draw_image():
@@ -33,12 +38,13 @@ def draw_image():
 
     width, height, channels, data = dpg.load_image('images/image.jpg')
 
+
     with dpg.texture_registry(show=False):
         dpg.add_static_texture(width=width, height=height, default_value=data, tag="curr_image")
 
-    with dpg.window(tag=IMG_WIN):
+    with dpg.window(tag=IMG_WIN, width=width, height=height):
         dpg.add_image("curr_image")
-
+        dpg.bind_font(default_font)
 
 def timer():
     global my_timer
@@ -51,6 +57,7 @@ def timer():
 
 
 def get_new_img():
+    global image_width, image_height
     file_path = MAIN_DIR + SUB_DIR[random.randint(0, len(SUB_DIR) - 1)] + "*.jpg"
     images = glob.glob(file_path)
     random_image = random.choice(images)
@@ -58,44 +65,44 @@ def get_new_img():
         get_new_img()
     else:
         images_used.append(random_image)
+        print(random_image)
 
     new_img = Image.open(random_image)
 
     ImageOps.exif_transpose(new_img)
 
-    for orientation in ExifTags.TAGS.keys():
-        if ExifTags.TAGS[orientation] == 'Orientation':
-            break
+    if ExifTags.TAGS.keys() is not None:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
 
-    exif = new_img._getexif()
+        exif = new_img._getexif()
 
-    if exif[orientation] == 3:
-        new_img = new_img.rotate(180, expand=True)
-    elif exif[orientation] == 4:
-        new_img = new_img.rotate(180, expand=True)
-    elif exif[orientation] == 5:
-        new_img = new_img.rotate(270, expand=True)
-    elif exif[orientation] == 6:
-        new_img = new_img.rotate(270, expand=True)
-    elif exif[orientation] == 7:
-        new_img = new_img.rotate(270, expand=True)
-    elif exif[orientation] == 8:
-        new_img = new_img.rotate(90, expand=True)
-    elif exif[orientation] is None:
-        get_new_img()
-    elif exif[orientation] == 274:
-        get_new_img()
+        if exif[orientation] == 3:
+            new_img = new_img.rotate(180, expand=True)
+        elif exif[orientation] == 4:
+            new_img = new_img.rotate(180, expand=True)
+        elif exif[orientation] == 5:
+            new_img = new_img.rotate(270, expand=True)
+        elif exif[orientation] == 6:
+            new_img = new_img.rotate(270, expand=True)
+        elif exif[orientation] == 7:
+            new_img = new_img.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            new_img = new_img.rotate(90, expand=True)
 
     new_height = 1000
     new_width = new_height / new_img.height * new_img.width
     resized_img = new_img.resize((int(new_width), int(new_height)))
     resized_img.save(f'images/image.jpg')
 
+    image_width = resized_img.width
+    image_height = resized_img.height
+
 
 draw_image()
 t = threading.Thread(target=timer)
 t.start()
-
 
 dpg.create_viewport(title="PyrPose")
 dpg.setup_dearpygui()
@@ -110,6 +117,14 @@ while dpg.is_dearpygui_running():
         viewed_images += 1
         draw_image()
         dpg.set_primary_window("Primary Window", True)
+
+    dpg.set_viewport_title(title="PyrPose - Figure Drawing Tool")
+
+    if dpg.does_item_exist("counter"):
+        dpg.delete_item("counter")
+        dpg.draw_text((image_width + 200, 0), str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
+    else:
+        dpg.draw_text((image_width + 200, 0), str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
 
     dpg.render_dearpygui_frame()
 
