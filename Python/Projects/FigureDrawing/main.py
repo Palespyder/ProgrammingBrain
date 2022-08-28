@@ -9,29 +9,43 @@ import threading
 import os
 
 dpg.create_context()
-#dpg.enable_docking(dock_space=True)
 
 NUM_IMAGES = 30
-POSE_LENGTH = 180
+POSE_LENGTH = 10
 MAIN_DIR = "C:\\Users\\jason\\Desktop\\Art\\Art Ref"
 SUB_DIR = ["\\Female Fantasy pack\\", "\\sample pack new\\", "\\Veronica_Large\\"]
-my_timer = POSE_LENGTH
 viewed_images = 0
 IMG_WIN = "Primary Window"
 STOP_LOOP = False
+NEW_IMAGE = True
 
-def start():
+
+def draw_image():
+    if dpg.does_item_exist("curr_image"):
+        dpg.delete_item("curr_image")
+    if dpg.does_item_exist(IMG_WIN):
+        dpg.delete_item(IMG_WIN)
+
+    get_new_img()
+
+    width, height, channels, data = dpg.load_image('images/image.jpg')
+
+    with dpg.texture_registry(show=False):
+        dpg.add_static_texture(width=width, height=height, default_value=data, tag="curr_image")
+
+    with dpg.window(tag=IMG_WIN):
+        dpg.add_image("curr_image")
+
+
+def timer():
     global my_timer
-    while my_timer > 0 and not STOP_LOOP:
+    my_timer = POSE_LENGTH
+    while my_timer >= 0:
+        if STOP_LOOP:
+            break
         my_timer -= 1
-        time.sleep(1)
+        sleep(1)
 
-def stop():
-    STOP_LOOP = True
-
-def start_thread():
-    t = threading.Thread(target=start)
-    t.start()
 
 def get_new_img():
     file_path = MAIN_DIR + SUB_DIR[random.randint(0, len(SUB_DIR) - 1)] + "*.jpg"
@@ -55,21 +69,25 @@ def get_new_img():
         resized_img.save(f'images/image.jpg')
 
 
-get_new_img()
-start_thread()
+draw_image()
+t = threading.Thread(target=timer)
+t.start()
 
-width, height, channels, data = dpg.load_image('images/image.jpg')
 
-with dpg.texture_registry(show=False):
-    dpg.add_static_texture(width=width, height=height, default_value=data, tag="texture_tag")
-
-with dpg.window(tag=IMG_WIN):
-    dpg.add_image("texture_tag")
-
-dpg.create_viewport(title='PyrPose - Figure Drawing Tool')
+dpg.create_viewport(title="PyrPose")
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.maximize_viewport()
-dpg.set_primary_window(IMG_WIN, True)
-dpg.start_dearpygui()
+while dpg.is_dearpygui_running():
+    # insert here any code you would like to run in the render loop
+    # you can manually stop by using stop_dearpygui()
+    if my_timer <= 0 and viewed_images <= NUM_IMAGES:
+        my_timer = POSE_LENGTH
+        viewed_images += 1
+        print(viewed_images)
+        draw_image()
+
+    dpg.render_dearpygui_frame()
+
 dpg.destroy_context()
+STOP_LOOP = True
