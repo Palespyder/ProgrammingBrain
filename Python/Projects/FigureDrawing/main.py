@@ -86,7 +86,6 @@ def get_new_img():
     elif exif[orientation] == 274:
         get_new_img()
 
-
     new_height = 1000
     new_width = new_height / new_img.height * new_img.width
     resized_img = new_img.resize((int(new_width), int(new_height)))
