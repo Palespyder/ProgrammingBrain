@@ -38,13 +38,13 @@ def draw_image():
 
     width, height, channels, data = dpg.load_image('images/image.jpg')
 
-
     with dpg.texture_registry(show=False):
         dpg.add_static_texture(width=width, height=height, default_value=data, tag="curr_image")
 
     with dpg.window(tag=IMG_WIN, width=width, height=height):
         dpg.add_image("curr_image")
         dpg.bind_font(default_font)
+
 
 def timer():
     global my_timer
@@ -122,9 +122,9 @@ while dpg.is_dearpygui_running():
 
     if dpg.does_item_exist("counter"):
         dpg.delete_item("counter")
-        dpg.draw_text((image_width + 200, 0), str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
+        dpg.draw_text((image_width + 200, 0), "Time Remaining: " + str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
     else:
-        dpg.draw_text((image_width + 200, 0), str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
+        dpg.draw_text((image_width + 200, 0), "Time Remaining: " + str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
 
     dpg.render_dearpygui_frame()
 
