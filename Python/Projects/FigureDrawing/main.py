@@ -75,7 +75,6 @@ def get_new_img():
         get_new_img()
     else:
         images_used.append(random_image)
-        print(random_image)
 
     new_img = Image.open(random_image)
 
