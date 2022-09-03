@@ -118,7 +118,7 @@ while dpg.is_dearpygui_running():
         draw_image()
         dpg.set_primary_window("Primary Window", True)
 
-    dpg.set_viewport_title(title="PyrPose - A Figure Drawing Tool for Me!")
+    dpg.set_viewport_title(title="PyrPose - A Figure Drawing Tool for Me")
 
     if dpg.does_item_exist("counter"):
         dpg.delete_item("counter")
