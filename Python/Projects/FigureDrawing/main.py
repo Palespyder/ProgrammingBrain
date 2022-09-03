@@ -13,10 +13,10 @@ dpg.create_context()
 # add a font registry
 with dpg.font_registry():
     # first argument ids the path to the .ttf or .otf file
-    default_font = dpg.add_font("Cinzel-Regular.ttf", 120)
+    default_font = dpg.add_font("Cinzel-Regular.ttf", 50)
 
 NUM_IMAGES = 30
-POSE_LENGTH = 180
+POSE_LENGTH = 10
 MAIN_DIR = "C:\\Users\\jason\\Desktop\\Art\\Art Ref"
 SUB_DIR = ["\\Female Fantasy pack\\", "\\Poses\\", "\\Sword fight\\", "\\Veronica_Large\\"]
 viewed_images = 0
@@ -26,6 +26,17 @@ NEW_IMAGE = True
 images_used = []
 image_width = None
 image_height = None
+my_timer = 0
+
+
+def timer():
+    global my_timer
+    my_timer = POSE_LENGTH
+    while my_timer >= 0:
+        if STOP_LOOP:
+            break
+        my_timer -= 1
+        sleep(1)
 
 
 def draw_image():
@@ -42,18 +53,17 @@ def draw_image():
         dpg.add_static_texture(width=width, height=height, default_value=data, tag="curr_image")
 
     with dpg.window(tag=IMG_WIN, width=width, height=height):
-        dpg.add_image("curr_image")
-        dpg.bind_font(default_font)
+        with dpg.child_window(height=60):
+            with dpg.group(horizontal=True):
+                timer_text = dpg.add_text(default_value=" Time Remaining : ")
+                timer_num = dpg.add_text(default_value=str(round(my_timer / 60, 2)))
 
-
-def timer():
-    global my_timer
-    my_timer = POSE_LENGTH
-    while my_timer >= 0:
-        if STOP_LOOP:
-            break
-        my_timer -= 1
-        sleep(1)
+            dpg.bind_item_font(item=timer_text, font=default_font)
+            dpg.bind_item_font(item=timer_num, font=default_font)
+        with dpg.child_window(height=1000, autosize_y=True):
+            with dpg.group(horizontal=False):
+                dpg.add_image("curr_image")
+                dpg.bind_font(default_font)
 
 
 def get_new_img():
@@ -91,7 +101,7 @@ def get_new_img():
         elif exif[orientation] == 8:
             new_img = new_img.rotate(90, expand=True)
 
-    new_height = 1000
+    new_height = 900
     new_width = new_height / new_img.height * new_img.width
     resized_img = new_img.resize((int(new_width), int(new_height)))
     resized_img.save(f'images/image.jpg')
@@ -119,12 +129,6 @@ while dpg.is_dearpygui_running():
         dpg.set_primary_window("Primary Window", True)
 
     dpg.set_viewport_title(title="PyrPose - A Figure Drawing Tool for Me")
-
-    if dpg.does_item_exist("counter"):
-        dpg.delete_item("counter")
-        dpg.draw_text((image_width + 200, 0), "Time Remaining: " + str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
-    else:
-        dpg.draw_text((image_width + 200, 0), "Time Remaining: " + str(round(my_timer / 60, 2)), parent=IMG_WIN, size=120, tag="counter")
 
     dpg.render_dearpygui_frame()
 
