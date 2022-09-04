@@ -85,6 +85,7 @@ def main_window_setup():
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
+    dpg.maximize_viewport()
     dpg.set_primary_window(window=main_window, value=True)
     dpg.start_dearpygui()
     dpg.destroy_context()
