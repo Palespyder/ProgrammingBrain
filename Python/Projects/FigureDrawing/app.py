@@ -86,6 +86,19 @@ class App:
                                 add_adult = dpg.add_checkbox(label="Adult", default_value=True)
 
                             dpg.add_spacer(height=15)
+
+                            class_type_text = dpg.add_text(default_value=" Session Type:")
+                            dpg.bind_item_font(item=class_type_text, font=bold_font)
+                            dpg.add_spacer(height=5)
+                            item_list = ["All the same length", "Class Mode"]
+                            session_type = dpg.add_radio_button(
+                                items=item_list,
+                                label="Session Type",
+                                horizontal=True, callback=self.get_session_times)
+
+
+
+                            dpg.add_spacer(height=15)
                             dpg.add_button(label="Reset Settings", width=-1, height=30)
 
                         dpg.add_separator()
@@ -110,6 +123,14 @@ class App:
         dpg.set_primary_window(window=main_window, value=True)
         dpg.start_dearpygui()
         dpg.destroy_context()
+
+    def get_session_times(self, sender, app_data):
+        if app_data == "All the same length":
+            print("interval")
+
+        elif app_data == "Class Mode":
+            print("class")
+
 
     def run(self):
         self.main_window_setup()
