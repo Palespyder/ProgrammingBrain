@@ -53,8 +53,8 @@ class App:
                             dpg.add_separator()
                             dpg.add_spacer(height=5)
 
-                            settings_text = dpg.add_text(default_value=" Cover and Clothing:")
-                            dpg.bind_item_font(item=settings_text, font=bold_font)
+                            clothing_text = dpg.add_text(default_value=" Cover and Clothing:")
+                            dpg.bind_item_font(item=clothing_text, font=bold_font)
                             dpg.add_spacer(height=5)
                             clothing =dpg.add_radio_button(items=("All Models", "Only Nude Models", "Only Clothed Models"),
                                                            label="Cover and Clothing",
@@ -63,8 +63,8 @@ class App:
 
                             dpg.add_spacer(height=15)
 
-                            settings_text = dpg.add_text(default_value=" Gender:")
-                            dpg.bind_item_font(item=settings_text, font=bold_font)
+                            gender_text = dpg.add_text(default_value=" Gender:")
+                            dpg.bind_item_font(item=gender_text, font=bold_font)
                             dpg.add_spacer(height=5)
 
                             gender = dpg.add_radio_button(
@@ -74,7 +74,9 @@ class App:
 
                             dpg.add_spacer(height=15)
 
-                            age_text = dpg.add_text(default_value=" Gender:")
+                            age_text = dpg.add_text(default_value=" Ages:")
+                            dpg.bind_item_font(item=age_text, font=bold_font)
+                            dpg.add_spacer(height=5)
 
                             with dpg.group(horizontal=True):
                                 dpg.add_spacer(height=15)
