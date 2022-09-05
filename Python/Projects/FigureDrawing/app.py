@@ -6,8 +6,7 @@ from theme_settings import *
 
 class App:
     def __init__(self):
-        self.type = "All the same length"
-        self.interval = None
+        self.interval = 30
 
     def main_window_setup(self):
         dpg.create_viewport(title="PyPose Figure Drawing Tool", x_pos=0, y_pos=0, width=1920, height=1080)
@@ -79,7 +78,7 @@ class App:
                             dpg.add_spacer(height=5)
 
                             interval = dpg.add_radio_button(
-                                    items=("30 Seconds", "60 Seconds", "2 Minutes", "5 Minutes", "10 Minutes"),
+                                    items=("30 Seconds", "60 Seconds", "2 Minutes", "5 Minutes", "10 Minutes", "20 Minutes"),
                                     label="Time Interval",
                                     horizontal=False,
                                     callback=self.set_interval)
@@ -88,8 +87,10 @@ class App:
                         dpg.add_separator()
                         dpg.add_spacer()
                         dpg.add_button(label="Start", width=-1, height=30)
-                        dpg.add_button(label="Restart", width=-1, height=30)
-                        dpg.add_button(label="Reset Stats", width=-1, height=30)
+                        dpg.add_button(label="Pause", width=-1, height=30)
+                        with dpg.group(horizontal=True, width=350):
+                            dpg.add_button(label="Previous Image", height=30)
+                            dpg.add_button(label="Next Image", height=30)
                         dpg.add_spacer()
                         dpg.add_separator()
                         dpg.add_spacer()
@@ -108,14 +109,19 @@ class App:
         dpg.start_dearpygui()
         dpg.destroy_context()
 
-
     def set_interval(self, sender, app_data):
-        self.interval = app_data
-        print(self.interval)
-
-    def set_type(self, sender, app_data):
-        self.type = app_data
-        print(self.type)
+        if app_data == "30 Secondss":
+            self.interval = 30
+        elif app_data == "60 Seconds":
+            self.interval = 60
+        elif app_data == "2 Minutes":
+            self.interval = 2 * 60
+        elif app_data == "5 Minutes":
+            self.interval = 5 * 60
+        elif app_data == "10 Minutes":
+            self.interval = 10 * 60
+        elif app_data == "20 Minutes":
+            self.interval = 20 * 60
 
 
     def run(self):
