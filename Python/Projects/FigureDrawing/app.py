@@ -6,7 +6,8 @@ from theme_settings import *
 
 class App:
     def __init__(self):
-        pass
+        self.type = "All the same length"
+        self.interval = None
 
     def main_window_setup(self):
         dpg.create_viewport(title="PyPose Figure Drawing Tool", x_pos=0, y_pos=0, width=1920, height=1080)
@@ -73,42 +74,16 @@ class App:
                                 horizontal=True)
 
                             dpg.add_spacer(height=15)
-
-                            age_text = dpg.add_text(default_value=" Ages:")
-                            dpg.bind_item_font(item=age_text, font=bold_font)
-                            dpg.add_spacer(height=5)
-
-                            with dpg.group(horizontal=True):
-                                dpg.add_spacer(height=15)
-                                add_baby = dpg.add_checkbox(label="Baby", default_value=False)
-                                add_child = dpg.add_checkbox(label="Child", default_value=False)
-                                add_teen = dpg.add_checkbox(label="Teen", default_value=False)
-                                add_adult = dpg.add_checkbox(label="Adult", default_value=True)
-
-                            dpg.add_spacer(height=15)
-
-                            class_type_text = dpg.add_text(default_value=" Session Type:")
-                            dpg.bind_item_font(item=class_type_text, font=bold_font)
-                            dpg.add_spacer(height=5)
-                            item_list = ["All the same length", "Class Mode"]
-                            session_type = dpg.add_radio_button(
-                                items=item_list,
-                                label="Session Type",
-                                horizontal=True)
-
-                            dpg.add_spacer(height=15)
                             interval_text = dpg.add_text(default_value=" Time Interval:")
                             dpg.bind_item_font(item=interval_text, font=bold_font)
                             dpg.add_spacer(height=5)
 
                             interval = dpg.add_radio_button(
-                                items=("30 Seconds", "60 Seconds", "2 Minutes", "5 Minutes", "10 Minutes"),
-                                label="Time Interval",
-                                horizontal=False)
+                                    items=("30 Seconds", "60 Seconds", "2 Minutes", "5 Minutes", "10 Minutes"),
+                                    label="Time Interval",
+                                    horizontal=False,
+                                    callback=self.set_interval)
 
-
-                            dpg.add_spacer(height=15)
-                            dpg.add_button(label="Reset Settings", width=-1, height=30)
 
                         dpg.add_separator()
                         dpg.add_spacer()
@@ -132,6 +107,15 @@ class App:
         dpg.set_primary_window(window=main_window, value=True)
         dpg.start_dearpygui()
         dpg.destroy_context()
+
+
+    def set_interval(self, sender, app_data):
+        self.interval = app_data
+        print(self.interval)
+
+    def set_type(self, sender, app_data):
+        self.type = app_data
+        print(self.type)
 
 
     def run(self):
