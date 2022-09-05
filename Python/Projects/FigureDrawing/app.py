@@ -45,7 +45,7 @@ class App:
 
                 with dpg.child_window(autosize_x=True, autosize_y=True):
                     with dpg.group():
-                        with dpg.child_window(height=540):
+                        with dpg.child_window(height=640):
                             dpg.add_spacer(height=5)
                             settings_text = dpg.add_text(default_value=" Settings")
                             dpg.bind_item_font(item=settings_text, font=bold_font)
@@ -94,8 +94,17 @@ class App:
                             session_type = dpg.add_radio_button(
                                 items=item_list,
                                 label="Session Type",
-                                horizontal=True, callback=self.get_session_times)
+                                horizontal=True)
 
+                            dpg.add_spacer(height=15)
+                            interval_text = dpg.add_text(default_value=" Time Interval:")
+                            dpg.bind_item_font(item=interval_text, font=bold_font)
+                            dpg.add_spacer(height=5)
+
+                            interval = dpg.add_radio_button(
+                                items=("30 Seconds", "60 Seconds", "2 Minutes", "5 Minutes", "10 Minutes"),
+                                label="Time Interval",
+                                horizontal=False)
 
 
                             dpg.add_spacer(height=15)
@@ -123,13 +132,6 @@ class App:
         dpg.set_primary_window(window=main_window, value=True)
         dpg.start_dearpygui()
         dpg.destroy_context()
-
-    def get_session_times(self, sender, app_data):
-        if app_data == "All the same length":
-            print("interval")
-
-        elif app_data == "Class Mode":
-            print("class")
 
 
     def run(self):
