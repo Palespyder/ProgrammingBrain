@@ -123,6 +123,8 @@ class App:
         elif app_data == "20 Minutes":
             self.interval = 20 * 60
 
+    # Function to update Image.
+
 
     def run(self):
         self.main_window_setup()
