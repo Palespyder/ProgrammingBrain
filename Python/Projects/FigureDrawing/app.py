@@ -1,4 +1,10 @@
 import dearpygui.dearpygui as dpg
+from PIL import Image, ImageOps, ExifTags
+from time import *
+import random
+import glob
+import threading
+import os
 
 dpg.create_context()
 
@@ -7,6 +13,17 @@ from theme_settings import *
 class App:
     def __init__(self):
         self.interval = 30
+        self.pose_length = 180
+        self.timer = 0
+        self.stop_loop = False
+
+    def timer(self):
+        self.timer = self.pose_length
+        while self.timer >= 0:
+            if self.stop_loop:
+                break
+            self.timer -= 1
+            sleep(1)
 
     def main_window_setup(self):
         dpg.create_viewport(title="PyPose Figure Drawing Tool", x_pos=0, y_pos=0, width=1920, height=1080)
