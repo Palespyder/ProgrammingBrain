@@ -14,15 +14,15 @@ class App:
     def __init__(self):
         self.interval = 30
         self.pose_length = 180
-        self.timer = 0
+        self.time = 0
         self.stop_loop = False
 
     def timer(self):
-        self.timer = self.pose_length
-        while self.timer >= 0:
+        self.time = self.pose_length
+        while self.time >= 0:
             if self.stop_loop:
                 break
-            self.timer -= 1
+            self.time -= 1
             sleep(1)
 
     def main_window_setup(self):
@@ -35,7 +35,7 @@ class App:
             with dpg.child_window(height=90, autosize_x=True):
                 with dpg.group(horizontal=True):
                     score_text = dpg.add_text(default_value=" Time Remaining : ")
-                    score = dpg.add_text(default_value="0")
+                    score = dpg.add_text(default_value=self.time)
 
                 dpg.bind_item_font(item=score_text, font=timer_font)
                 dpg.bind_item_font(item=score, font=timer_font)
