@@ -16,6 +16,9 @@ class App:
         self.pose_length = 180
         self.time = 0
         self.stop_loop = False
+        self.main_dir = "C:\\Users\\jason\\Desktop\\Art\\Art Ref"
+        self.sub_dir = ["\\Female Fantasy pack\\", "\\Poses\\", "\\Sword fight\\", "\\Veronica_Large\\"]
+        self.images_used = []
 
     def timer(self):
         self.time = self.pose_length
@@ -24,6 +27,47 @@ class App:
                 break
             self.time -= 1
             sleep(1)
+
+    def get_new_img(self):
+        file_path = self.main_dir + self.sub_dir[random.randint(0, len(self.sub_dir) - 1)] + "*.jpg"
+        images = glob.glob(file_path)
+        random_image = random.choice(images)
+        if random_image in self.images_used:
+            self.get_new_img()
+        else:
+            self.images_used.append(random_image)
+
+        new_img = Image.open(random_image)
+
+        ImageOps.exif_transpose(new_img)
+
+        if ExifTags.TAGS.keys() is not None:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+
+            exif = new_img._getexif()
+
+            if exif[orientation] == 3:
+                new_img = new_img.rotate(180, expand=True)
+            elif exif[orientation] == 4:
+                new_img = new_img.rotate(180, expand=True)
+            elif exif[orientation] == 5:
+                new_img = new_img.rotate(270, expand=True)
+            elif exif[orientation] == 6:
+                new_img = new_img.rotate(270, expand=True)
+            elif exif[orientation] == 7:
+                new_img = new_img.rotate(270, expand=True)
+            elif exif[orientation] == 8:
+                new_img = new_img.rotate(90, expand=True)
+
+        new_height = 900
+        new_width = new_height / new_img.height * new_img.width
+        resized_img = new_img.resize((int(new_width), int(new_height)))
+        resized_img.save(f'images/image.jpg')
+
+        image_width = resized_img.width
+        image_height = resized_img.height
 
     def main_window_setup(self):
         dpg.create_viewport(title="PyPose Figure Drawing Tool", x_pos=0, y_pos=0, width=1920, height=1080)
