@@ -21,6 +21,7 @@ func main() {
 	pl(newInt)
 
 	newFloat := 3.14
-	pl(newFloat)
+	newFloat2 := 6.14
+	pl(newFloat * newFloat2)
 
 }
