@@ -1,12 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+var pl = fmt.Println
 
 func main() {
-	fmt.Println("Welcome to out conference booking application.")
-	fmt.Println("Get your tickets to attend.")
+	sV1 := "A Word"
+	replacer := strings.NewReplacer("A", "Another")
+	sV2 := replacer.Replace(sV1)
+	pl(sV2)
 
-	var name = "Go Conference"
-
-	fmt.Println(name)
 }
