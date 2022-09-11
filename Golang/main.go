@@ -15,5 +15,9 @@ func main() {
 	mInt := 1
 	mInt++
 	pl(mInt)
+	mInt++
+	pl(mInt)
+	newInt := mInt + 23/4*2 - 4 + 6 + 9 - 5
+	pl(newInt)
 
 }
