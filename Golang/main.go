@@ -20,4 +20,7 @@ func main() {
 	newInt := mInt + 23/4*2 - 4 + 6 + 9 - 5
 	pl(newInt)
 
+	newFloat := 3.14
+	pl(newFloat)
+
 }
