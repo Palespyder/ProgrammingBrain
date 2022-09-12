@@ -7,13 +7,10 @@ import (
 var pl = fmt.Println
 
 func main() {
-	var i, j, k, l int;
-	var c ch byte;
-	var f, salaray float32;
-	d = 42;
 
-	
-
-
+	var x float64
+	x = 20.0
+	pl(x)
+	fmt.Printf("x is of type %T\n", x)
 
 }
