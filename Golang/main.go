@@ -24,4 +24,6 @@ func main() {
 	newFloat2 := 6.14
 	pl(newFloat * newFloat2)
 
+	pl("This is a Test")
+
 }
