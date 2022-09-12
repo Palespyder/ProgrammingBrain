@@ -7,23 +7,13 @@ import (
 var pl = fmt.Println
 
 func main() {
-	pl("5 + 4 =", 5+4)
-	pl("5 - 4 =", 5-4)
-	pl("5 / 4 =", 5/4)
-	pl("5 * 4 =", 5*4)
-	pl("5 % 4 =", 5%4)
-	mInt := 1
-	mInt++
-	pl(mInt)
-	mInt++
-	pl(mInt)
-	newInt := mInt + 23/4*2 - 4 + 6 + 9 - 5
-	pl(newInt)
+	var i, j, k, l int;
+	var c ch byte;
+	var f, salaray float32;
+	d = 42;
 
-	newFloat := 3.14
-	newFloat2 := 6.14
-	pl(newFloat * newFloat2)
+	
 
-	pl("This is a Test")
+
 
 }
