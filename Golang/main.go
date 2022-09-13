@@ -19,4 +19,6 @@ func main() {
 	fmt.Printf("y is of type %T\n", y)
 	fmt.Printf("LENGTH is of type %T\n", LENGTH)
 
+	pl(365 + y)
+
 }
