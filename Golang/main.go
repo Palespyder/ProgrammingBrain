@@ -20,5 +20,6 @@ func main() {
 	fmt.Printf("LENGTH is of type %T\n", LENGTH)
 
 	pl(365 + y)
+	pl(LENGTH + y)
 
 }
